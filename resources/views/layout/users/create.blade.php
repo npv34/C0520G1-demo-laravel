@@ -5,12 +5,26 @@
         <div class="card-header">
             Users add
         </div>
+
+        @if($errors->all())
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Error! </strong> Thao tac them moi khong thanh cong!
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
+
         <div class="card-body">
             <form action="{{ route('users.store') }}" method="POST">
                 @csrf
                 <div class="form-group">
                     <label>Name</label>
-                    <input type="text" class="form-control" name="name">
+                    <input type="text" class="form-control  @if($errors->has('name'))border border-danger @endif" name="name">
+                    @if($errors->has('name'))
+                        <p class="text-danger">{{ $errors->first('name') }}</p>
+                    @endif
+
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Email address</label>
@@ -38,11 +52,12 @@
                 <div class="form-group">
                     <label>Roles select</label>
                     @foreach($roles as $role)
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" name="role[{{$role->id}}]" value="{{ $role->id }}"> {{ $role->name }}
-                        </label>
-                    </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="role[{{$role->id}}]"
+                                       value="{{ $role->id }}"> {{ $role->name }}
+                            </label>
+                        </div>
                     @endforeach
                 </div>
                 <div class="form-group">
