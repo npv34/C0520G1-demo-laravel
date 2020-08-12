@@ -30,8 +30,12 @@ class UserController extends Controller
 
     public function showFormEdit($id)
     {
-
+        $user = $this->userService->getById($id);
+        $roles = Role::all();
+        $groups = $this->groupService->getAll();
+        return view('layout.users.edit',compact('user','roles','groups'));
     }
+
 
     public function create()
     {
@@ -50,10 +54,10 @@ class UserController extends Controller
             $user->save();
             $user->roles()->sync($request->role);
             DB::commit();
+            return redirect()->route('users.index');
         } catch (\Exception $exception) {
             DB::rollBack();
             echo $exception->getMessage();
         }
-
     }
 }

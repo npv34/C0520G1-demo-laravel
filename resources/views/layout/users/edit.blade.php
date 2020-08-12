@@ -20,7 +20,8 @@
                 @csrf
                 <div class="form-group">
                     <label>Name</label>
-                    <input type="text" class="form-control  @if($errors->has('name'))border border-danger @endif" value="{{old('name')}}" name="name">
+                    <input type="text" class="form-control  @if($errors->has('name'))border border-danger @endif"
+                           name="name">
                     @if($errors->has('name'))
                         <p class="text-danger">{{ $errors->first('name') }}</p>
                     @endif
@@ -29,23 +30,25 @@
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Email address</label>
                     <input type="email" name="email" class="form-control" id="exampleFormControlInput1"
-                           placeholder="name@example.com">
+                           value="{{$user->email}}">
                 </div>
                 <div class="form-group">
                     <label>Address</label>
-                    <input type="text" name="address" class="form-control">
+                    <input type="text" name="address" class="form-control" value="{{$user->address}}">
                 </div>
 
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" name="password" class="form-control">
-                </div>
+                {{--                <div class="form-group">--}}
+                {{--                    <label>Password</label>--}}
+                {{--                    <input type="password" name="password" class="form-control">--}}
+                {{--                </div>--}}
 
                 <div class="form-group">
                     <label for="exampleFormControlSelect1">Group select</label>
                     <select class="form-control" name="group_id">
                         @foreach($groups as $group)
-                            <option value="{{ $group->id }}">{{ $group->name }}</option>
+                            <option @if($group->id == $user->group_id) selected @endif
+                            value="{{ $group->id }}">{{ $group->name }}
+                            </option>
                         @endforeach
                     </select>
                 </div>
@@ -54,7 +57,14 @@
                     @foreach($roles as $role)
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" name="role[{{$role->id}}]"
+                                `
+                                <input type="checkbox"
+                                       @foreach($user->roles as $roleUser )
+                                       @if($roleUser->id == $role->id)
+                                       checked
+                                       @endif
+                                       @endforeach
+                                       name="role[{{$role->id}}]"
                                        value="{{ $role->id }}"> {{ $role->name }}
                             </label>
                         </div>

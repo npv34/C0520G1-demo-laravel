@@ -18,13 +18,21 @@ Route::get('/', function () {
 });
 
 Route::get('register','AuthController@showFormRegister')->name('auth.showFormRegister');
+Route::get('login','AuthController@showFormLogin')->name('auth.showFormLogin');
+Route::post('login','AuthController@login')->name('auth.login');
 Route::post('register','AuthController@register')->name('auth.register')->middleware('checkAge');
-Route::prefix('admin')->group(function (){
+Route::middleware('checkLogin')->prefix('admin')->group(function (){
+
+    Route::get('logout','AuthController@logout')->name('auth.logout');
+
+
     Route::get('/dashboard', 'AdminController@showDashboard');
     Route::prefix('/users')->group(function (){
         Route::get('/', 'UserController@index')->name('users.index');
         Route::get('/{id}/edit', 'UserController@showFormEdit')->name('users.showFormEdit');
         Route::get('/create', 'UserController@create')->name('users.create');
         Route::post('/create', 'UserController@store')->name('users.store');
+        Route::post('/{id}/edit', 'UserController@update')->name('users.update');
+
     });
 });

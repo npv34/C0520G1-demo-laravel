@@ -17,16 +17,7 @@ class UserService
 
     public function all()
     {
-        $users = $this->userRepository->getAll();
-        $arr = [];
-
-        foreach ($users as $user) {
-            if ($user->age > 18) {
-                array_push($arr, $user);
-            }
-        }
-
-        return $arr;
+        return $this->userRepository->getAll();
     }
 
     public function getById($id)

@@ -24,11 +24,10 @@
                         <td>{{ $user['name'] }}</td>
                         <td>{{ $user['email'] }}</td>
                         <td>
-                            @if($user['role_id'] == \App\Http\Controllers\RoleConstant::ADMIN)
-                                {{ 'Admin' }}
-                            @elseif($user['role_id'] == \App\Http\Controllers\RoleConstant::USER)
-                                {{ 'User' }}
-                            @endif
+                            @foreach($user->roles as $role)
+                                {{$role->name}}<br>
+
+                            @endforeach
                         </td>
                         <td><a href="{{ route('users.showFormEdit', $user['id']) }}" class="btn btn-primary">Edit</a></td>
                     </tr>

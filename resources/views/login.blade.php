@@ -7,25 +7,14 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-</head>
+    </head>
 <body>
 <div class="container">
-    @if(\Illuminate\Support\Facades\Session::has('age-error'))
-        {{ \Illuminate\Support\Facades\Session::get('age-error') }}
-    @endif
-    <form method="post" action="{{ route('auth.register') }}">
+    <form method="post" action="{{ route('auth.login') }}">
         @csrf
-        <div class="form-group">
-            <label>Name</label>
-            <input type="text" name="name" class="form-control">
-        </div>
         <div class="form-group">
             <label for="exampleInputEmail1">Email address</label>
             <input type="email" name="email" class="form-control" aria-describedby="emailHelp">
-        </div>
-        <div class="form-group">
-            <label>Birthday</label>
-            <input type="date" name="birthday" class="form-control" aria-describedby="emailHelp">
         </div>
         <div class="form-group">
             <label for="exampleInputPassword1">Password</label>
