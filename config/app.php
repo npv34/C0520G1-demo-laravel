@@ -134,6 +134,8 @@ return [
     |
     */
 
+    'github_api_url' => env('GITHUB_API_URL'),
+
     'providers' => [
 
         /*

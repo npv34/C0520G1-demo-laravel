@@ -33,6 +33,13 @@ Route::middleware('checkLogin')->prefix('admin')->group(function (){
         Route::get('/create', 'UserController@create')->name('users.create');
         Route::post('/create', 'UserController@store')->name('users.store');
         Route::post('/{id}/edit', 'UserController@update')->name('users.update');
+    });
 
+    Route::prefix('github')->group(function (){
+        Route::prefix('users')->group(function (){
+            Route::get('/','Api\GithubController@index');
+            Route::get('/search','Api\GithubController@search')->name('github.users.search');
+            Route::get('/{name}','Api\GithubController@getUser')->name('github.users.detail');
+        });
     });
 });
