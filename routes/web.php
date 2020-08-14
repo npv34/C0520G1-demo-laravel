@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,6 +18,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::post('/', function (Request $request) {
+    $data= $request->day_of_week;
+    foreach ($data as $key => $value) {
+        $obj = new stdClass();
+        $obj->day_of_week = $key;
+        $obj->result_level = $value;
+        dd($obj);
+    }
+});
 Route::get('register','AuthController@showFormRegister')->name('auth.showFormRegister');
 Route::get('login','AuthController@showFormLogin')->name('auth.showFormLogin');
 Route::post('login','AuthController@login')->name('auth.login');
@@ -33,6 +43,7 @@ Route::middleware('checkLogin')->prefix('admin')->group(function (){
         Route::get('/create', 'UserController@create')->name('users.create');
         Route::post('/create', 'UserController@store')->name('users.store');
         Route::post('/{id}/edit', 'UserController@update')->name('users.update');
+        Route::get('/{id}/delete', 'UserController@delete')->name('users.delete');
     });
 
     Route::prefix('github')->group(function (){

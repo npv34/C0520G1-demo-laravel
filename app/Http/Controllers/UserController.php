@@ -60,4 +60,26 @@ class UserController extends Controller
             echo $exception->getMessage();
         }
     }
+
+    public function delete($id) {
+        $user = $this->userService->getById($id);
+        $user->delete();
+        $result = [
+            "status" => 'success',
+            "message" => 'delete success'
+        ];
+
+        return response()->json($result);
+    }
+
+    public function search(Request $request) {
+        $keyword = $request->keyword;
+        $users = User::where('name','LIKE','%' . $keyword . '%')->get();
+        $result = [
+            "status" => 'success',
+            "data" => $users
+        ];
+
+        return response()->json($result);
+    }
 }
