@@ -31,10 +31,9 @@ Route::get('register','AuthController@showFormRegister')->name('auth.showFormReg
 Route::get('login','AuthController@showFormLogin')->name('auth.showFormLogin');
 Route::post('login','AuthController@login')->name('auth.login');
 Route::post('register','AuthController@register')->name('auth.register')->middleware('checkAge');
-Route::middleware('checkLogin')->prefix('admin')->group(function (){
+Route::middleware(['checkLogin','setLocale'])->prefix('admin')->group(function (){
 
     Route::get('logout','AuthController@logout')->name('auth.logout');
-
 
     Route::get('/dashboard', 'AdminController@showDashboard');
     Route::prefix('/users')->group(function (){
@@ -45,6 +44,8 @@ Route::middleware('checkLogin')->prefix('admin')->group(function (){
         Route::post('/{id}/edit', 'UserController@update')->name('users.update');
         Route::get('/{id}/delete', 'UserController@delete')->name('users.delete');
     });
+
+    Route::post('language','LangController@setLocale')->name('lang.setLocale');
 
     Route::prefix('github')->group(function (){
         Route::prefix('users')->group(function (){

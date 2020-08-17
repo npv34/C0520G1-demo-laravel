@@ -24,7 +24,17 @@
                 </div>
             </li>
             <li class="nav-item">
-                <a class="nav-link disabled" href="#">Disabled</a>
+                <div class="form-group">
+                    <form action="{{ route('lang.setLocale') }}" method="post">
+                        @csrf
+                        <select class="form-control" name="lang" onchange="this.form.submit()">
+                            <option value="vi" @if(\Illuminate\Support\Facades\Session::get('locale') == 'vi') selected @endif>vi</option>
+                            <option value="en" @if(\Illuminate\Support\Facades\Session::get('locale') == 'en') selected @endif>en</option>
+                        </select>
+                    </form>
+
+                </div>
+
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">

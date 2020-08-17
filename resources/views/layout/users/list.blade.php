@@ -5,7 +5,7 @@
         <div class="card-header">
             <div class="row">
                 <div class="col-md-2">
-                    Users
+                    {{ __('message.users') }}
                 </div>
                 <div class="col-md-6">
                     <input type="text" id="search-user" name="keyword">

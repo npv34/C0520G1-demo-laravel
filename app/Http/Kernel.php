@@ -4,6 +4,7 @@ namespace App\Http;
 
 use App\Http\Middleware\CheckAge;
 use App\Http\Middleware\CheckLogin;
+use App\Http\Middleware\Lang;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -67,5 +68,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'checkAge' => CheckAge::class,
         'checkLogin' => CheckLogin::class,
+        'setLocale' => Lang::class,
     ];
 }
