@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Services\AuthService;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
@@ -33,21 +34,21 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        ///kiem tra tai khoan mat khau
-        $user = User::where('email', $request->email)->first();
-        if (!$user) {
+        $data = [
+            "username" => $request->username,
+            "password" => $request->password
+        ];
+
+        if (!Auth::attempt($data)) {
             return redirect()->route('auth.login');
         }
-        Session::put('isAuth', true);
-        Session::put('userLogin', $user);
 
         return redirect()->route('users.index');
     }
 
     public function logout()
     {
-        Session::remove('isAuth');
-        Session::remove('userLogin');
+        Auth::logout();
         return redirect()->route('auth.login');
     }
 }

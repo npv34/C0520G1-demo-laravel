@@ -20,9 +20,9 @@
                 @csrf
                 <div class="form-group">
                     <label>Name</label>
-                    <input type="text" class="form-control  @if($errors->has('name'))border border-danger @endif" value="{{old('name')}}" name="name">
-                    @if($errors->has('name'))
-                        <p class="text-danger">{{ $errors->first('name') }}</p>
+                    <input type="text" class="form-control  @if($errors->has('username'))border border-danger @endif" value="{{old('username')}}" name="username">
+                    @if($errors->has('username'))
+                        <p class="text-danger">{{ $errors->first('username') }}</p>
                     @endif
 
                 </div>

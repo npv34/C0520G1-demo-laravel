@@ -17,12 +17,15 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-2">
-                    <a href="{{ route('users.create') }}" class="btn btn-success">Add</a>
+                    @can('crud-user')
+                        <a href="{{ route('users.create') }}" class="btn btn-success">Add</a>
+                    @endcan
 
                 </div>
                 <div class="col-md-2">
                     <button class="btn btn-primary dropdown-toggle mr-4" type="button" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">Basic dropdown</button>
+                            aria-haspopup="true" aria-expanded="false">Basic dropdown
+                    </button>
 
                     <div class="dropdown-menu">
                         <a class="dropdown-item">
@@ -65,17 +68,23 @@
                 @forelse($users as $key => $user)
                     <tr class="user-item" id="user-{{$user->id}}">
                         <th scope="row">{{ $key + 1 }}</th>
-                        <td class="user-name">{{ $user['name'] }}</td>
-                        <td class="user-email">{{ $user['email'] }}</td>
+                        <td class="user-name">{{ $user->username }}</td>
+                        <td class="user-email">{{ $user->email }}</td>
                         <td>
                             @foreach($user->roles as $role)
                                 {{$role->name}}<br>
-
                             @endforeach
                         </td>
-                        <td><a href="{{ route('users.showFormEdit', $user['id']) }}" class="btn btn-primary">Edit</a>
-                            <button class="btn btn-danger delete-user" data-id="{{ $user->id }}">Delete</button></td>
                         <td>
+                            @can('crud-user')
+                                <a href="{{ route('users.showFormEdit', $user->id) }}" class="btn btn-primary">Edit</a>
+
+                                <button class="btn btn-danger delete-user" data-id="{{ $user->id }}">Delete</button>
+
+                            @endcan
+                        </td>
+
+
                     </tr>
                 @empty
                     <tr>

@@ -28,10 +28,10 @@ Route::post('/', function (Request $request) {
     }
 });
 Route::get('register','AuthController@showFormRegister')->name('auth.showFormRegister');
-Route::get('login','AuthController@showFormLogin')->name('auth.showFormLogin');
+Route::get('login','AuthController@showFormLogin')->name('login');
 Route::post('login','AuthController@login')->name('auth.login');
 Route::post('register','AuthController@register')->name('auth.register')->middleware('checkAge');
-Route::middleware(['checkLogin','setLocale'])->prefix('admin')->group(function (){
+Route::middleware(['auth','setLocale'])->prefix('admin')->group(function (){
 
     Route::get('logout','AuthController@logout')->name('auth.logout');
 
